@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>My Manga Website</title>
+    <script src="https://jquery.com"></script>
+    <script src="https://cloudflare.com"></script>
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        h1 { font-size: 1.2rem; margin: 10px 0 5px 0; }
+        .instructions { color: #888; font-size: 0.8rem; margin-bottom: 10px; }
+        .viewer-wrapper {
+            width: 95vw;
+            height: 80vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #manga-viewer { width: 100%; height: 100%; }
+        #manga-viewer .page {
+            background-color: #1f1f1f;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Manga Chapter 1</h1>
+    <div class="instructions">← Swipe left to read (Right-to-Left) ←</div>
+
+    <div class="viewer-wrapper">
+        <div id="manga-viewer">
+            <!-- Abhi ke liye yeh dummy pages hain, baad mein hum aapke manga ki images lagayenge -->
+            <div class="page" style="background-image: url('https://picsum.photos');"></div>
+            <div class="page" style="background-image: url('https://picsum.photos');"></div>
+            <div class="page" style="background-image: url('https://picsum.photos');"></div>
+            <div class="page" style="background-image: url('https://picsum.photos');"></div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            var isMobile = window.innerWidth < 768;
+            var wrapperWidth = $('.viewer-wrapper').width();
+            var wrapperHeight = $('.viewer-wrapper').height();
+
+            $('#manga-viewer').turn({
+                width: wrapperWidth,
+                height: wrapperHeight,
+                display: isMobile ? 'single' : 'double',
+                acceleration: true,
+                gradients: true,
+                direction: 'rtl'
+            });
+
+            $(window).resize(function() {
+                var newWidth = $('.viewer-wrapper').width();
+                var newHeight = $('.viewer-wrapper').height();
+                $('#manga-viewer').turn('size', newWidth, newHeight);
+            });
+        });
+    </script>
+</body>
+</html>
